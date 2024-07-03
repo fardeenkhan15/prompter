@@ -1,4 +1,6 @@
 import '@styles/globals.css';
+import Navbar from '@components/Navbar';
+import Provider from '@components/Provider';
 
 export const metadata = {
     title: 'Prompter',
@@ -13,6 +15,7 @@ const RootLayout = ({children}) => {
                 <div className='gradient'/>
             </div>
             <main className='app'>
+                <Navbar />
                 {children}
             </main>
         </body>
