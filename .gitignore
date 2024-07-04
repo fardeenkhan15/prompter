@@ -5,7 +5,11 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+
+# environment variables
 .env
+.env.*      # This will cover any .env.* files, like .env.local, .env.development, etc.
+.env*.local
 
 # testing
 /coverage
