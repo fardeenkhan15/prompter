@@ -1,10 +1,15 @@
-import React from 'react'
+'use client'
+
+import { useState, useEffect } from "react"
+import PromptCard from "./PromptCard"
 
 const Feed = () => {
   return (
-    <div>
-      
-    </div>
+    <section className="feed">
+      <form className="relative w-full flex-center" action="">
+
+      </form>
+    </section>
   )
 }
 
