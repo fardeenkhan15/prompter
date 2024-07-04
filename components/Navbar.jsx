@@ -7,18 +7,17 @@ import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 
 const Navbar = () => {
 
-  const isUderLoggedIn = true;
+  const { data: session} = useSession();
+
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, settoggleDropdown] = useState (false);
 
   useEffect(() => {
-    const setProviders = async () => {
-      const response = await getProviders();
-      setProviders(response);
-    }
-
-    setProviders()
-  }, [])
+    (async () => {
+      const res = await getProviders();
+      setProviders(res);
+    })();
+  }, []);
 
   return (
     <nav className="flex-between w-full mb-16 pt-3">
@@ -33,12 +32,13 @@ const Navbar = () => {
         <p className="logo_text">Prompter</p>
       </Link>
 
+
       {/* Desktop devices */}
       <div className="sm:flex hidden">
-        {isUderLoggedIn ? (
+        {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn">
-              Create Post
+              Create Prompt
             </Link>
 
             <button type="button" onClick={signOut} className="outline_btn">
@@ -47,7 +47,7 @@ const Navbar = () => {
 
             <Link href="/profile" >
               <Image
-                src="assets/images/logo.svg"
+                src={session?.user.image}
                 width={37}
                 height={37}
                 className="rounded-full"
@@ -56,29 +56,30 @@ const Navbar = () => {
             </Link>
           </div>
         ): (
-          <>
-          {providers && Object.values(providers).map((providers) => 
-            ( 
-              <button
-              type="button"
-              key={providers.name}
-              onClick={() => signIn(provider.id)}
-              className="black_btn"
-              >
-                Sign In
-              </button>
-          ))}
+<>
+            {providers &&
+              Object.values(providers).map((provider) => (
+                <button
+                  type='button'
+                  key={provider.name}
+                  onClick={() => {
+                    signIn(provider.id);
+                  }}
+                  className='black_btn'
+                >
+                  Sign in
+                </button>
+              ))}
           </>
-        
-        ) }
+        )}
       </div>
 
       {/* mobile devices */}
       <div className="sm:hidden flex relative">
-        {isUderLoggedIn ? (
+        {session?.user ? (
           <div className="flex">
             <Image
-                  src="/assets/images/logo.svg"
+                  src={session?.user.image}
                   width={37}
                   height={37}
                   className="rounded-full"
