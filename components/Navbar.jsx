@@ -108,7 +108,7 @@ const Navbar = () => {
                     onClick={() => {settoggleDropdown(false);
                                     signOut();
                     }}
-                    className="mt-5 w-full blsck_btn"
+                    className="mt-5 w-full black_btn"
                     >
                       Sign Out
                     </button>
