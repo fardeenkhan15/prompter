@@ -27,9 +27,10 @@ const Feed = () => {
   const [searchedResults, setSearchedResults] = useState([]);
 
   const fetchPosts = async () => {
+    console.log("Fetching posts..."); // Log
     const response = await fetch("/api/prompt");
     const data = await response.json();
-
+    console.log("Fetched data:", data); // Log
     setAllPosts(data);
   };
 
@@ -37,8 +38,8 @@ const Feed = () => {
     fetchPosts();
   }, []);
 
-  const filterPrompts = (searchtext) => {
-    const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
+  const filterPrompts = (searchText) => {
+    const regex = new RegExp(searchText, "i"); // 'i' flag for case-insensitive search
     return allPosts.filter(
       (item) =>
         regex.test(item.creator.username) ||
@@ -69,6 +70,7 @@ const Feed = () => {
 
   return (
     <section className='feed'>
+      {console.log("Rendering Feed with posts:", allPosts)} {/* Log */}
       <form className='relative w-full flex-center'>
         <input
           type='text'
